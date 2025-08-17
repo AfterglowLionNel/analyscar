@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
@@ -16,6 +17,9 @@ namespace analysCAR
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string? _rootDir;
+        private bool _rootIsCarDir;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -29,7 +33,7 @@ namespace analysCAR
             };
             if (dialog.ShowDialog() == WinForms.DialogResult.OK)
             {
-                LoadDataFromDirectory(dialog.SelectedPath);
+                HandleDirectorySelection(dialog.SelectedPath);
             }
         }
 
@@ -61,8 +65,40 @@ namespace analysCAR
                 var paths = (string[])e.Data.GetData(System.Windows.DataFormats.FileDrop);
                 if (paths.Length > 0 && Directory.Exists(paths[0]))
                 {
-                    LoadDataFromDirectory(paths[0]);
+                    HandleDirectorySelection(paths[0]);
                 }
+            }
+        }
+
+        private static bool IsDateDirectory(string name)
+        {
+            return DateTime.TryParseExact(name, "yyyy年MM月dd日", CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
+        }
+
+        private void HandleDirectorySelection(string dir)
+        {
+            _rootDir = dir;
+            var subDirs = Directory.GetDirectories(dir);
+            _rootIsCarDir = subDirs.Any(d => IsDateDirectory(Path.GetFileName(d)));
+
+            if (_rootIsCarDir)
+            {
+                carModelCombo.ItemsSource = new[] { Path.GetFileName(dir) };
+            }
+            else
+            {
+                carModelCombo.ItemsSource = subDirs.Select(Path.GetFileName).ToList();
+            }
+
+            carModelCombo.SelectedIndex = carModelCombo.Items.Count > 0 ? 0 : -1;
+        }
+
+        private void CarModelCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (carModelCombo.SelectedItem is string carName && _rootDir != null)
+            {
+                var targetDir = _rootIsCarDir ? _rootDir : Path.Combine(_rootDir, carName);
+                LoadDataFromDirectory(targetDir);
             }
         }
 
