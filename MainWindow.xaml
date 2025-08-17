@@ -15,6 +15,7 @@
 
         <StackPanel Orientation="Horizontal" Margin="10">
             <Button Content="フォルダを選択" Click="SelectFolder_Click" />
+            <ComboBox x:Name="carModelCombo" Width="150" Margin="10,0,0,0" SelectionChanged="CarModelCombo_SelectionChanged" />
             <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="フォルダをドラッグ＆ドロップしても読み込めます" />
         </StackPanel>
 
