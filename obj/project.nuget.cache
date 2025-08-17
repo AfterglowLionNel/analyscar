@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "0oGfqBCG7+o=",
+  "dgSpecHash": "pLpa3nF+/KM=",
   "success": true,
   "projectFilePath": "F:\\analysCAR\\analysCAR.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\lions\\.nuget\\packages\\oxyplot.core\\2.1.0\\oxyplot.core.2.1.0.nupkg.sha512",
+    "C:\\Users\\lions\\.nuget\\packages\\oxyplot.wpf\\2.1.0\\oxyplot.wpf.2.1.0.nupkg.sha512",
+    "C:\\Users\\lions\\.nuget\\packages\\oxyplot.wpf.shared\\2.1.0\\oxyplot.wpf.shared.2.1.0.nupkg.sha512"
+  ],
   "logs": []
 }

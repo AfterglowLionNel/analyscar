@@ -33,32 +33,32 @@ namespace analysCAR
             }
         }
 
-        private void Grid_DragOver(object sender, DragEventArgs e)
+        private void Grid_DragOver(object sender, System.Windows.DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent(System.Windows.DataFormats.FileDrop))
             {
-                var paths = (string[])e.Data.GetData(DataFormats.FileDrop);
+                var paths = (string[])e.Data.GetData(System.Windows.DataFormats.FileDrop);
                 if (paths.Length > 0 && Directory.Exists(paths[0]))
                 {
-                    e.Effects = DragDropEffects.Copy;
+                    e.Effects = System.Windows.DragDropEffects.Copy;
                 }
                 else
                 {
-                    e.Effects = DragDropEffects.None;
+                    e.Effects = System.Windows.DragDropEffects.None;
                 }
             }
             else
             {
-                e.Effects = DragDropEffects.None;
+                e.Effects = System.Windows.DragDropEffects.None;
             }
             e.Handled = true;
         }
 
-        private void Grid_Drop(object sender, DragEventArgs e)
+        private void Grid_Drop(object sender, System.Windows.DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent(System.Windows.DataFormats.FileDrop))
             {
-                var paths = (string[])e.Data.GetData(DataFormats.FileDrop);
+                var paths = (string[])e.Data.GetData(System.Windows.DataFormats.FileDrop);
                 if (paths.Length > 0 && Directory.Exists(paths[0]))
                 {
                     LoadDataFromDirectory(paths[0]);
@@ -113,7 +113,7 @@ namespace analysCAR
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"読み込み中にエラーが発生しました: {ex.Message}", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Windows.MessageBox.Show($"読み込み中にエラーが発生しました: {ex.Message}", "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
